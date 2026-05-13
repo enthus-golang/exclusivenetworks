@@ -65,5 +65,5 @@ func TestDateRoundTrip(t *testing.T) {
 
 	var decoded Date
 	require.NoError(t, json.Unmarshal(encoded, &decoded))
-	assert.True(t, original.Time.Equal(decoded.Time))
+	assert.True(t, original.Equal(decoded.Time))
 }

@@ -2,12 +2,9 @@ package exclusivenetworks
 
 import (
 	"encoding/json"
-	"io"
 	"net/http"
 	"net/http/httptest"
 	"testing"
-
-	"github.com/stretchr/testify/require"
 )
 
 // tokenHandler responds to the OAuth2 token endpoint with a fixed
@@ -52,14 +49,4 @@ func startServer(t *testing.T, mux *http.ServeMux) *httptest.Server {
 	server := httptest.NewServer(mux)
 	t.Cleanup(server.Close)
 	return server
-}
-
-// readGraphQLRequest parses the JSON body of an incoming GraphQL POST.
-func readGraphQLRequest(t *testing.T, r *http.Request) graphqlRequest {
-	t.Helper()
-	body, err := io.ReadAll(r.Body)
-	require.NoError(t, err)
-	var req graphqlRequest
-	require.NoError(t, json.Unmarshal(body, &req))
-	return req
 }
