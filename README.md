@@ -23,8 +23,8 @@ import (
 
 func main() {
 	client := exclusivenetworks.New(
-		"https://sandbox.access.exclusive-networks.com/graphql",
-		"https://sandbox.access.exclusive-networks.com/oauth/token",
+		"https://YOUR_GRAPHQL_BASE_URL",
+		"https://YOUR_OAUTH_TOKEN_URL",
 		"YOUR_CLIENT_ID",
 		"YOUR_CLIENT_SECRET",
 		"YOUR_SCOPE",

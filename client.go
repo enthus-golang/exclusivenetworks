@@ -40,10 +40,10 @@ type Client struct {
 
 // New creates an Exclusive Networks AccessNow API client.
 //
-// baseURL is the GraphQL endpoint, e.g. "https://sandbox.access.exclusive-networks.com/graphql".
-// tokenURL is the OAuth2 token endpoint that issues client_credentials tokens.
-// clientID, clientSecret, and scope are the OAuth2 credentials provisioned
-// by Exclusive Networks.
+// baseURL is the GraphQL endpoint. tokenURL is the OAuth2 token endpoint
+// that issues client_credentials tokens. clientID, clientSecret, and
+// scope are the OAuth2 credentials provisioned by Exclusive Networks.
+// All four URLs/credentials are issued by Exclusive Networks on approval.
 //
 // All five arguments are required; this constructor does not validate them
 // — instead, the first call needing them surfaces any errors.
