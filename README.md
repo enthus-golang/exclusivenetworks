@@ -55,7 +55,6 @@ client := exclusivenetworks.New(baseURL, tokenURL, clientID, clientSecret, scope
 	exclusivenetworks.WithHTTPClient(myHTTPClient),
 	exclusivenetworks.WithRateLimit(60, 3600),               // per minute, per hour (0 = unlimited)
 	exclusivenetworks.WithRetry(3, 500*time.Millisecond),    // max attempts, base backoff
-	exclusivenetworks.WithCustomerID("YOUR_TENANT_ID"),      // injected as OIC_AUTHENTICATED_CUSTOMER
 )
 ```
 

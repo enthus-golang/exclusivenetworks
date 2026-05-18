@@ -55,12 +55,3 @@ func WithLogger(logger Logger) Option {
 		c.logger = logger
 	}
 }
-
-// WithCustomerID sets the tenant identifier injected as the
-// OIC_AUTHENTICATED_CUSTOMER GraphQL variable on every request, per the
-// AccessNow examples. Empty string disables injection.
-func WithCustomerID(customerID string) Option {
-	return func(c *Client) {
-		c.customerID = customerID
-	}
-}

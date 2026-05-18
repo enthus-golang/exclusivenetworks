@@ -23,7 +23,6 @@ type Client struct {
 	clientID     string
 	clientSecret string
 	scope        string
-	customerID   string
 
 	httpClient  *http.Client
 	minLimiter  *rate.Limiter
@@ -80,10 +79,8 @@ type graphqlResponse struct {
 
 // do issues an authenticated GraphQL POST. The query is sent as
 // {"query": query, "operationName": opName, "variables": variables}.
-// When the client has a configured customerID, it is injected into
-// variables as OIC_AUTHENTICATED_CUSTOMER (unless the caller already
-// supplied it). The data envelope is decoded into out; any GraphQL errors
-// surface as *GraphQLErrors.
+// The data envelope is decoded into out; any GraphQL errors surface as
+// *GraphQLErrors.
 func (c *Client) do(ctx context.Context, opName, query string, variables map[string]any, out any) error {
 	if c.minLimiter != nil {
 		if err := c.minLimiter.Wait(ctx); err != nil {
@@ -98,15 +95,6 @@ func (c *Client) do(ctx context.Context, opName, query string, variables map[str
 
 	if err := c.authenticate(ctx); err != nil {
 		return err
-	}
-
-	if c.customerID != "" {
-		if variables == nil {
-			variables = make(map[string]any, 1)
-		}
-		if _, present := variables["OIC_AUTHENTICATED_CUSTOMER"]; !present {
-			variables["OIC_AUTHENTICATED_CUSTOMER"] = c.customerID
-		}
 	}
 
 	body, err := json.Marshal(graphqlRequest{
