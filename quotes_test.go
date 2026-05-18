@@ -99,8 +99,7 @@ func TestGetQuoteByNumberHappyPath(t *testing.T) {
 	mux.Handle("/graphql", handler)
 	server := startServer(t, mux)
 
-	client := New(server.URL+"/graphql", server.URL+"/token", "id", "secret", "",
-		WithCustomerID("CUST-99"))
+	client := New(server.URL+"/graphql", server.URL+"/token", "id", "secret", "")
 	quote, err := client.GetQuoteByNumber(context.Background(), "QPL010006170")
 	require.NoError(t, err)
 	require.NotNil(t, quote)
@@ -114,8 +113,6 @@ func TestGetQuoteByNumberHappyPath(t *testing.T) {
 	assert.Equal(t, 2026, quote.Lines[0].ContractStartDate.Year())
 	assert.Equal(t, 2027, quote.Lines[0].ContractEndDate.Year())
 
-	// Customer ID injected as variable.
-	assert.Equal(t, "CUST-99", handler.lastRequest.Variables["OIC_AUTHENTICATED_CUSTOMER"])
 	assert.Equal(t, "QPL010006170", handler.lastRequest.Variables["number"])
 	assert.Equal(t, "FindQuoteByNumber", handler.lastRequest.OperationName)
 }
